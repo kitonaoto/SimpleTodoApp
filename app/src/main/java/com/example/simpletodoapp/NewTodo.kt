@@ -14,6 +14,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.simpletodoapp.databinding.FragmentNewTodoBinding
 import com.example.simpletodoapp.databinding.FragmentNewTodoBinding.inflate
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
  * A simple [Fragment] subclass as the second destination in the navigation.
@@ -93,9 +94,9 @@ class NewTodo : Fragment() {
             }
         }
 
-        // ボタンを押したら一覧画面へ行くの処理
-//        view.findViewById<Button>(R.id.button_second).setOnClickListener {
-//            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
-//        }
+        // ボタンを押したら一覧画面へ行くボタン
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+        }
     }
 }
