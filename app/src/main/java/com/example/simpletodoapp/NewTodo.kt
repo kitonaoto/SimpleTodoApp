@@ -61,7 +61,7 @@ class NewTodo : Fragment() {
                 binding.editText.text = null
             }
             // debug用
-            binding.textviewFirst.text = viewModel.todoListLiveData.toString()
+            // どのようにしたらLiveDataから値を取り出すことができるのか？
             // viewModel.todoListLiveData.apply {
             //value?.forEach {
             //        binding.textviewFirst.text = it.title
@@ -91,11 +91,6 @@ class NewTodo : Fragment() {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }
-        }
-
-        // ボタンを押したら一覧画面へ行くボタン
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
     }
 }
