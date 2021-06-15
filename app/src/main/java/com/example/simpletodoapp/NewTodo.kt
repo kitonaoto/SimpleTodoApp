@@ -88,7 +88,6 @@ class NewTodo : Fragment() {
                 val item = spinnerParent.selectedItem as String
                 binding.categoryMessage.text = item
             }
-
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 TODO("Not yet implemented")
             }

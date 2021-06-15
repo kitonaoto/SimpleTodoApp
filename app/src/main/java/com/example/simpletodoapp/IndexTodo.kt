@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpletodoapp.ListAdapter.UsersAdapter
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -44,7 +45,7 @@ class IndexTodo : Fragment() {
 
         recyclerView.setAdapter(adapter)
 
-        view.findViewById<Button>(R.id.button_first).setOnClickListener {
+        view.findViewById<FloatingActionButton>(R.id.button_first).setOnClickListener {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
