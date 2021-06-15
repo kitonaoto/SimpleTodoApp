@@ -11,6 +11,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.example.simpletodoapp.ListAdapter.UsersAdapter
+import com.example.simpletodoapp.databinding.FragmentIndexTodoBinding
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 /**
@@ -20,6 +21,7 @@ class IndexTodo : Fragment() {
 
     lateinit var todoViewModel: TodoViewModel
     var adapter = UsersAdapter()
+    private lateinit var binding: FragmentIndexTodoBinding
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -29,13 +31,14 @@ class IndexTodo : Fragment() {
             todoViewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
         }
 
+        binding = FragmentIndexTodoBinding.inflate(layoutInflater, container, false)
 
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_index_todo, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
 
         var recyclerView: RecyclerView = view.findViewById(R.id.recyclerview)
 
@@ -45,7 +48,7 @@ class IndexTodo : Fragment() {
 
         recyclerView.setAdapter(adapter)
 
-        view.findViewById<FloatingActionButton>(R.id.button_first).setOnClickListener {
+        binding.buttonFirst.setOnClickListener{
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }
