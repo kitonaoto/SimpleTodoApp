@@ -10,8 +10,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.Spinner
+import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavController
+import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.ui.AppBarConfiguration
+import androidx.navigation.ui.setupWithNavController
+import com.example.simpletodoapp.databinding.ActivityMainBinding
 import com.example.simpletodoapp.databinding.FragmentNewTodoBinding
 import com.example.simpletodoapp.databinding.FragmentNewTodoBinding.inflate
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -44,6 +50,11 @@ class NewTodo : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.viewModel = viewModel
+
+        val navController = findNavController()
+        val appBarConfiguration = AppBarConfiguration(navController.graph)
+        binding.toolbar.setupWithNavController(navController, appBarConfiguration)
+
 
         binding.sendButton.setOnClickListener{
             if(binding.editText.text != null) {
