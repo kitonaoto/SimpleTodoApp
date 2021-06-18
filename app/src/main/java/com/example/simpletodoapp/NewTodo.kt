@@ -1,15 +1,17 @@
 package com.example.simpletodoapp
 
+import android.R
+import android.R.id
+import android.annotation.SuppressLint
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.DialogInterface
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.Button
-import android.widget.Spinner
+import android.widget.*
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.NavController
@@ -39,10 +41,7 @@ class NewTodo : Fragment() {
             viewModel = ViewModelProvider(this).get(TodoViewModel::class.java)
         }
 
-        binding = FragmentNewTodoBinding.inflate(layoutInflater, container, false)
-
-        val Adapter = ArrayAdapter(requireContext(),android.R.layout.simple_spinner_dropdown_item, spinnerItems)
-        binding.categoryPicker.adapter = Adapter
+        binding = inflate(layoutInflater, container, false)
 
         return binding.root
     }
@@ -56,50 +55,39 @@ class NewTodo : Fragment() {
         binding.toolbar.setupWithNavController(navController, appBarConfiguration)
 
 
-        binding.sendButton.setOnClickListener{
-            if(binding.editText.text != null) {
-
-                var inputTitle = binding.editText.text
-                var inputCategory = binding.categoryMessage.text
-                var inputDate = binding.dateMessage.text
-                viewModel.todoListLiveData.apply {
-                    value?.add(Todo(title = inputTitle.toString(), category = inputCategory as String, date = inputDate as String))
-                }
-
-                // 入力文字を消す
-                binding.editText.text = null
-            }
-            // debug用
-            // どのようにしたらLiveDataから値を取り出すことができるのか？
-            // viewModel.todoListLiveData.apply {
-            //value?.forEach {
-            //        binding.textviewFirst.text = it.title
-            //    }
-            //}
-        }
-
-        binding.datePicker.setOnClickListener{
+        binding.dateTitle.setOnClickListener {
             val datePickerDialog = DatePickerDialog(
-                requireContext(),
-                DatePickerDialog.OnDateSetListener() {view, year, month, dayOfMonth->
-                    binding.dateMessage.text = "${year}/${month + 1}/${dayOfMonth}"
-                },
-                2020,
-                3,
-                1)
+                    requireContext(),
+                    DatePickerDialog.OnDateSetListener() {view, year, month, dayOfMonth->
+                        binding.dateContent.text = "${year}/${month + 1}/${dayOfMonth}"
+                    },
+                    2020,
+                    3,
+                    1)
             datePickerDialog.show()
         }
 
-        binding.categoryPicker.onItemSelectedListener = object: AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(parent: AdapterView<*>?,
-                                        view: View?, position: Int, id: Long) {
-                val spinnerParent = parent as Spinner
-                val item = spinnerParent.selectedItem as String
-                binding.categoryMessage.text = item
+        binding.sendButton.setOnClickListener{
+            if(binding.editText.text != null) {
+                var inputTitle = binding.editText.text
+                var inputCategory = binding.categoryContent.text
+                var inputDate = binding.dateContent.text
+                viewModel.todoListLiveData.apply {
+                    value?.add(Todo(title = inputTitle.toString(), category = inputCategory as String, date = inputDate as String))
+                }
+                // 入力文字を消す
+                binding.editText.text = null
+                // TODO(画面遷移させる)
             }
-            override fun onNothingSelected(parent: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+        }
+
+        binding.categoryTitle.setOnClickListener {
+            AlertDialog.Builder(requireContext())
+                    .setTitle("title")
+                    .setItems(spinnerItems) { _, which ->
+                        binding.categoryContent.text = spinnerItems[which]
+                    }
+                    .show()
         }
     }
 }
