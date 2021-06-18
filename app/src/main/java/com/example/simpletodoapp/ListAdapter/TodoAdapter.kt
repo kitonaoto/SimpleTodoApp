@@ -19,6 +19,7 @@ class UsersAdapter : ListAdapter<Todo, TodoViewHolder>(UserItemDiffCallback()) {
         // holder.bindTo(getItem(position))
         holder.todoTitle.text = getItem(position).title
         holder.todoCategory.text = getItem(position).category
+        holder.todoDate.text = getItem(position).date
     }
 
 }
